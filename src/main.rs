@@ -1,5 +1,10 @@
-use std::{thread, time};
+use core::panic;
+use std::io;
+use std::{io::Read, thread, time};
 use std::string::String;
+use std::fs::File;
+use std::io::ErrorKind;
+
 use rayon::prelude::*;
 
 
@@ -69,6 +74,31 @@ impl Play for Cricket {
     }
 }
 
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+
+// An integer division that doesn't `panic!`
+fn checked_division(dividend: i32, divisor: i32) -> Option<i32> {
+    if divisor == 0 {
+        // Failure is represented as the `None` variant
+        None
+    } else {
+        // Result is wrapped in a `Some` variant
+        Some(dividend / divisor)
+    }
+}
+
+// This function handles a division that may not succeed
+fn try_division(dividend: i32, divisor: i32) {
+    // `Option` values can be pattern matched, just like other enums
+    match checked_division(dividend, divisor) {
+        None => println!("{} / {} failed!", dividend, divisor),
+        Some(quotient) => {
+            println!("{} / {} = {}", dividend, divisor, quotient)
+        },
+    }
+}
 
 fn main() {
     // using functions
@@ -76,6 +106,29 @@ fn main() {
     // let ys: [u32; 5] = [1, 2, 3, 4, 5];
     // let acc = accuracy(&xs, &ys);
     // println!("accuracy {}", acc);
+
+    // ownership and borrowing
+    // let s1 = String::from("hello");
+    // let len = calculate_length(&s1);
+    // println!("{}", s1);
+    // println!("{}", len);
+
+    // using the option type
+    try_division(4, 2);
+    try_division(1, 0);
+
+    // // normal concurrency
+    // let handle = thread::spawn(|| {
+    //     for i in 1..10 {
+    //         println!("hi number {} from the spawned thread!", i);
+    //         thread::sleep(time::Duration::new(1, 0));
+    //     }
+    // });
+    // for i in 1..5 {
+    //     println!("hi number {} from the main thread!", i);
+    //     thread::sleep(time::Duration::new(1, 0));
+    // }
+    // handle.join().unwrap();
 
     // // rust concurrency using libraries
     // // we will also benchmark the result.
@@ -96,24 +149,26 @@ fn main() {
     // let elapsed = now.elapsed();
     // println!("Elapsed: {:#?}", elapsed);
 
-    // // normal concurrency
-    // let handle = thread::spawn(|| {
-    //     for i in 1..10 {
-    //         println!("hi number {} from the spawned thread!", i);
-    //         thread::sleep(time::Duration::new(1, 0));
-    //     }
-    // });
-    // for i in 1..5 {
-    //     println!("hi number {} from the main thread!", i);
-    //     thread::sleep(time::Duration::new(1, 0));
-    // }
-    // handle.join().unwrap();
+    // // traits and structs
+    // let tennis = Tennis{tennis_ball: "tennis ball".to_string()};
+    // tennis.play("player");
+    // let cricket = Cricket{red_ball: "red ball".to_string()};
+    // cricket.play("player");
 
-    // traits and structs
-    let tennis = Tennis{tennis_ball: "tennis ball".to_string()};
-    tennis.play("player");
-    let cricket = Cricket{red_ball: "red ball".to_string()};
-    cricket.play("player");
+    // // errors and exceptions
+    // let _f = File::open("hello.txt");
+    // let _f = match _f {
+    //     Ok(file) => {
+    //         println!("file read with no issues");
+    //         file
+    //     },
+    //     Err(_) => panic!("there is no spoon!"),
+    // };
+    // // need to show https://github.com/infinite-Joy/smart-open/blob/master/src/lib.rs#L111
+
+
+
+
 }
 
 
