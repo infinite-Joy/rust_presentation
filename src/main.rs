@@ -165,10 +165,7 @@ fn main() {
     //     Err(_) => panic!("there is no spoon!"),
     // };
     // // need to show https://github.com/infinite-Joy/smart-open/blob/master/src/lib.rs#L111
-
-
-
-
+    
 }
 
 
