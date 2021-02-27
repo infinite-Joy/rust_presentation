@@ -1,5 +1,6 @@
 use rayon::prelude::*;
 use std::time::Instant;
+use std::{thread, time};
 
 
 /// Generate accuracy for ytest and ypreds
@@ -24,13 +25,21 @@ pub fn accuracy(y_test: &[u32], y_preds: &[u32]) -> f32 {
     acc
 }
 
+pub fn slow_mul(x: u64) -> u64 {
+    let five_seconds = time::Duration::new(2, 0);
+    thread::sleep(five_seconds);
+    x * x
+}
+
 pub fn sum_of_squares_normal() {
-    let res: u64 = (0..1000000u64).map(|i| i * i).sum();
+    let res: u64 = (0..5u64)
+        .map(|x| slow_mul(x)).sum();
     println!("sum_of_squares_normal -> {}", res);
 }
 
 pub fn sum_of_squares_rayon() {
-    let res: u64 = (0..1000000u64).into_par_iter().map(|i| i * i).sum();
+    let res: u64 = (0..5u64).into_par_iter()
+        .map(|x| slow_mul(x)).sum();
     println!("sum_of_squares_normal -> {}", res);
 }
 
