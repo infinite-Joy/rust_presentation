@@ -102,20 +102,20 @@ fn try_division(dividend: i32, divisor: i32) {
 
 fn main() {
     // using functions
-    // let xs: [u32; 5] = [1, 2, 3, 4, 5];
-    // let ys: [u32; 5] = [1, 2, 3, 4, 5];
-    // let acc = accuracy(&xs, &ys);
-    // println!("accuracy {}", acc);
+    let xs: [u32; 5] = [1, 2, 3, 4, 5];
+    let ys: [u32; 5] = [1, 2, 3, 4, 5];
+    let acc = accuracy(&xs, &ys);
+    println!("accuracy {}", acc);
 
     // ownership and borrowing
-    // let s1 = String::from("hello");
-    // let len = calculate_length(&s1);
-    // println!("{}", s1);
-    // println!("{}", len);
+    let s1 = String::from("hello");
+    let len = calculate_length(&s1);
+    println!("{}", s1);
+    println!("{}", len);
 
-    // using the option type
-    try_division(4, 2);
-    try_division(1, 0);
+    // // using the option type
+    // try_division(4, 2);
+    // try_division(1, 0);
 
     // // normal concurrency
     // let handle = thread::spawn(|| {
@@ -149,11 +149,11 @@ fn main() {
     // let elapsed = now.elapsed();
     // println!("Elapsed: {:#?}", elapsed);
 
-    // // traits and structs
-    // let tennis = Tennis{tennis_ball: "tennis ball".to_string()};
-    // tennis.play("player");
-    // let cricket = Cricket{red_ball: "red ball".to_string()};
-    // cricket.play("player");
+    // traits and structs
+    let tennis = Tennis{tennis_ball: "tennis ball".to_string()};
+    tennis.play("player");
+    let cricket = Cricket{red_ball: "red ball".to_string()};
+    cricket.play("player");
 
     // // errors and exceptions
     // let _f = File::open("hello.txt");
